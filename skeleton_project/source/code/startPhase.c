@@ -4,6 +4,6 @@
 void startup(){
     elevio_init();
     while(elevio_floorSensor()!=1){
-        elevio_motorDirection(DIRN_UP);   
+        elevio_motorDirection(DIRN_DOWN);  
     }
 }
