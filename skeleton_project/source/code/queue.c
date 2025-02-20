@@ -1,9 +1,5 @@
 #include "queue.h"
 
-void removeFromQueue(){
-    
-};
-
 void removeFromInsideList(){
     switch (elevio_floorSensor()){
         case 0:
@@ -42,6 +38,56 @@ void addToInsideList(int targetFloor){
     }
 };
 
+Node_t *upList = NULL;
+Node_t *downList = NULL;
+
+void removeFromOutsideList(Node_t **head){
+    int currentFloor = elevio_floorSensor();
+
+    Node_t *current = *head;
+    Node_t *prev = NULL;
+
+    //Itererer structen
+    while (current != NULL) {
+        if (current->order.floorNumber == currentFloor) {
+            //Om det er første i listen
+            if (prev == NULL) {
+                *head = current->next;
+            } else {
+                prev->next = current->next;  //Skip noden
+            }
+            
+            free(current);  //Frigjør minne
+            return;  //Bryter når noden er fjernet
+        }
+        prev = current;
+        current = current->next;
+    }
+
+}
+
+void addToOutsideList(Node_t **head, int floorNumber, ButtonType b){ //Tror man kan legge til flere bestillinger fra samme etsaje nå
+    Node_t *newNode = malloc(sizeof(Node_t)); //Frigjør plass
+
+    newNode->order.floorNumber = floorNumber;
+    if(b == BUTTON_HALL_UP){
+        newNode->order.direction = 1;
+    } else {
+        newNode->order.direction = -1;
+    }
+
+    newNode->next = NULL;
+
+    if (*head == NULL) { //Setter newNode som head om den ikke eksisterer fra før
+        *head = newNode;
+    } else {
+        Node_t *current = *head; //Ittererer frem til siste og setter next som newNode;
+        while (current->next != NULL) {
+            current = current->next;
+        }
+        current->next = newNode;
+    }
+}
 
 void listenForInput(){ //Itererer over alle knappene og lytter etter input
     for (int floor = 0; floor <4; floor++){ //Usikker på om den skal gå fra 0-3 eller 1-4
@@ -51,10 +97,10 @@ void listenForInput(){ //Itererer over alle knappene og lytter etter input
                     addToInsideList(floor);
                 }
                 else if (buttonType == BUTTON_HALL_UP) { //Legger til i oppoverkø
-                    addToOutsideList();
+                    addToOutsideList(&upList, floor, buttonType);
                 }
                 else{ //Legger til i nedoverkø
-                    addToOutsideList()
+                    addToOutsideList(&downList, floor, buttonType);
                 }
             }
         } 

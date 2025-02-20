@@ -18,7 +18,7 @@ ElevatorButtons elevatorButtons = {false, false, false, false}; //Definerer glob
 
 typedef struct { //struct for hver bestiling fra utsiden
   int direction; 
-  int currentFloor;
+  int floorNumber;
 } orderFromOutside;
 
 typedef struct Node{ //Lenket liste for utsiden
@@ -29,6 +29,10 @@ typedef struct Node{ //Lenket liste for utsiden
 void removeFromInsideList();
 
 void addToInsideList(int targetFloor);
+
+void removeFromOutsideList(Node_t **head);
+
+void addToOutsideList(Node_t **head, int floorNumber, ButtonType b);
 
 void listenForInput();
 
