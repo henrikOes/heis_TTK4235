@@ -1,7 +1,6 @@
 #pragma once
 
-bool obstical;
-bool stopButton;
 
-void reset();
+
+void resetElevator();
 void wait();

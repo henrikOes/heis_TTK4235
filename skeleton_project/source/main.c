@@ -4,14 +4,18 @@
 #include <time.h>
 #include "code/startPhase.h"
 #include "driver/elevio.h"
+#include "code/security.h"
 
+int stopButton = 0;
 
 int main(){
 
     startup();
-
-
-
+    while (!stopButton)
+    {   
+        stopButton=elevio_stopButton();
+    }
+    
 
 
 
