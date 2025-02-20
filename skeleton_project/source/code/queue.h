@@ -1,6 +1,7 @@
 #pragma once
 #include <stdlib.h>
 #include <stdbool.h>
+#include "../driver/elevio.h"
 
 typedef enum { //prioritert på opp eller ned
   PRIORITY_UP = 1,
@@ -14,7 +15,8 @@ typedef struct { //Bestillinger fra innsiden
   bool floorButtonFour;
 } ElevatorButtons;
 
-ElevatorButtons elevatorButtons = {false, false, false, false}; //Definerer global variabel
+extern ElevatorButtons elevatorButtons;
+
 
 typedef struct { //struct for hver bestiling fra utsiden
   int direction; 

@@ -5,9 +5,8 @@
 
 void startup(){
     elevio_init();
-    int test=elevio_floorSensor();
-    while(test!=0){
+    while(elevio_floorSensor()!=0){
         elevio_motorDirection(DIRN_DOWN);  
-        test=elevio_floorSensor();
     }
+    elevio_motorDirection(DIRN_STOP);  
 }

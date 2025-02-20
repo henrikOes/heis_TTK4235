@@ -1,5 +1,8 @@
 #include "queue.h"
+#include <stdio.h>
+#include <stdbool.h>
 
+extern ElevatorButtons elevatorButtons;
 void removeFromInsideList(){
     switch (elevio_floorSensor()){
         case 0:
@@ -91,8 +94,8 @@ void addToOutsideList(Node_t **head, int floorNumber, ButtonType b){ //Tror man 
 
 void listenForInput(){ //Itererer over alle knappene og lytter etter input
     for (int floor = 0; floor <4; floor++){ //Usikker på om den skal gå fra 0-3 eller 1-4
-        for (int buttonType = BUTTON_HALL_UP; buttonType < BUTTON_CAB; buttonType++){
-            if (elevator_callButton(floor, buttonType == 1)){
+        for (int buttonType = BUTTON_HALL_UP; buttonType <= BUTTON_CAB; buttonType++){
+            if (elevio_callButton(floor, (ButtonType)buttonType)){
                 if(buttonType == BUTTON_CAB){ //Om input er fra innsiden legges den til
                     addToInsideList(floor);
                 }

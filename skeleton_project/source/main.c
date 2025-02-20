@@ -5,6 +5,7 @@
 #include "code/startPhase.h"
 #include "driver/elevio.h"
 #include "code/security.h"
+#include "code/queue.h"
 
 int stopButton = 0;
 
@@ -13,7 +14,11 @@ int main(){
     startup();
     while (!stopButton)
     {   
+        listenForInput();
         stopButton=elevio_stopButton();
+        if(elevatorButtons.floorButtonOne){
+            elevio_buttonLamp(0,BUTTON_CAB,1);
+        }
     }
     
 

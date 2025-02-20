@@ -1,6 +1,6 @@
 #include "elevator.h"
 
-/*
+
 void stop(){
 
 };
@@ -12,26 +12,22 @@ void move(){
 void openDoor(){
 
 };
-*/
 
-void elevatorStateMachine(){
-    switch (*elevatorState){
+
+void elevatorStateMachine(elevatorState *change){
+    switch (*change){
         case STATE_IDLE:
-
+            *change = STATE_IDLE;
             break;
         case STATE_UP:
-
+            *change = STATE_UP;
             break;
 
         case STATE_DOWN:
-
-            break;
-
-        case STATE_DOWN:
-
+            *change = STATE_DOWN;
             break;
         default:
-            *elevatorState = STATE_IDLE;
+            *change = STATE_IDLE;
             break;
     }
 
