@@ -1,24 +1,36 @@
 #pragma once
 #include <stdlib.h>
+#include <stdbool.h>
 
-int floorNumber;
-int direction;
+typedef enum { //prioritert på opp eller ned
+  PRIORITY_UP = 1,
+  PRIORITY_DOWN = -1
+} priority;
 
-typedef struct {
-  int *listStart;
-  size_t capacity;  
-} listUp;
+typedef struct { //Bestillinger fra innsiden
+  bool floorButtonOne;
+  bool floorButtonTwo;
+  bool floorButtonThree;
+  bool floorButtonFour;
+} ElevatorButtons;
 
-typedef struct {
-    int *listStart;
-    size_t capacity;  
-} listDown;
+ElevatorButtons elevatorButtons = {false, false, false, false}; //Definerer global variabel
 
-void removeFromQueue();
+typedef struct { //struct for hver bestiling fra utsiden
+  int direction; 
+  int currentFloor;
+} orderFromOutside;
 
-void addToQueueFloor();
+typedef struct Node{ //Lenket liste for utsiden
+  orderFromOutside order;
+  struct Node *next; 
+} Node_t;
 
-void addToQueueCabin();
+void removeFromInsideList();
+
+void addToInsideList(int targetFloor);
+
+void listenForInput();
 
 
 
