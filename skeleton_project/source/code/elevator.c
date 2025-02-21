@@ -1,6 +1,6 @@
 #include "elevator.h"
 
-
+/*
 void stop(){
 
 };
@@ -32,3 +32,4 @@ void elevatorStateMachine(elevatorState *change){
     }
 
 }
+    */

@@ -6,20 +6,23 @@
 #include "driver/elevio.h"
 #include "code/security.h"
 #include "code/queue.h"
+#include "code/lightPanel.h"
 
 int stopButton = 0;
 
 int main(){
 
     startup();
-    while (!stopButton)
+
+    testLights();
+
+    elevio_motorDirection(DIRN_STOP);    
+    /*while (!stopButton)
     {   
         listenForInput();
         stopButton=elevio_stopButton();
-        if(elevatorButtons.floorButtonOne){
-            elevio_buttonLamp(0,BUTTON_CAB,1);
-        }
     }
+        */
     
 
 

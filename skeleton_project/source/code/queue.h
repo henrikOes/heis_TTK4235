@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include "../driver/elevio.h"
 
+/*
 typedef enum { //prioritert på opp eller ned
   PRIORITY_UP = 1,
   PRIORITY_DOWN = -1
@@ -37,6 +38,7 @@ void removeFromOutsideList(Node_t **head);
 void addToOutsideList(Node_t **head, int floorNumber, ButtonType b);
 
 void listenForInput();
+*/
 
 
 
