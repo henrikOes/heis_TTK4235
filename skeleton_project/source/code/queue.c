@@ -1,5 +1,10 @@
 #include "queue.h"
-#include <stdio.h>
+
+int directionPriority;
+
+int upList[3] = {0, 0, 0};
+int downList[3] = {0, 0, 0};
+int insideList[4] = {0, 0, 0, 0};
 
 void removeFromInsideList(){
     int floor = elevio_floorSensor();

@@ -3,11 +3,11 @@
 #include "../driver/elevio.h"
 
 
-int directionPriority;
+extern int directionPriority;
 
-int upList[3] = {0, 0, 0};
-int downList[3] = {0, 0, 0};
-int insideList[4] = {0, 0, 0, 0};
+extern int upList[3];
+extern int downList[3];
+extern int insideList[4];
 
 
 void removeFromInsideList();
