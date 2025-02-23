@@ -1,14 +1,10 @@
 #pragma once
-#include <stdlib.h>
-#include "../driver/elevio.h"
-
 
 extern int directionPriority;
 
 extern int upList[3];
 extern int downList[3];
 extern int insideList[4];
-
 
 void removeFromInsideList();
 
