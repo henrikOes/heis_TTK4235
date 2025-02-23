@@ -4,6 +4,3 @@
 void setCurrentFloorLight(int floor){
     elevio_floorIndicator(floor);
 }
-
-
-

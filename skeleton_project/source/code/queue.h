@@ -1,44 +1,25 @@
 #pragma once
 #include <stdlib.h>
-#include <stdbool.h>
 #include "../driver/elevio.h"
 
-/*
-typedef enum { //prioritert på opp eller ned
-  PRIORITY_UP = 1,
-  PRIORITY_DOWN = -1
-} priority;
 
-typedef struct { //Bestillinger fra innsiden
-  bool floorButtonOne;
-  bool floorButtonTwo;
-  bool floorButtonThree;
-  bool floorButtonFour;
-} ElevatorButtons;
+int directionPriority;
 
-extern ElevatorButtons elevatorButtons;
+int upList[3] = {0, 0, 0};
+int downList[3] = {0, 0, 0};
+int insideList[4] = {0, 0, 0, 0};
 
-
-typedef struct { //struct for hver bestiling fra utsiden
-  int direction; 
-  int floorNumber;
-} orderFromOutside;
-
-typedef struct Node{ //Lenket liste for utsiden
-  orderFromOutside order;
-  struct Node *next; 
-} Node_t;
 
 void removeFromInsideList();
 
-void addToInsideList(int targetFloor);
+void addToInsideList(int floor);
 
-void removeFromOutsideList(Node_t **head);
+void removeFromOutsideList(int directionPriority);
 
-void addToOutsideList(Node_t **head, int floorNumber, ButtonType b);
+void addToOutsideList(int floor, int direction);
 
 void listenForInput();
-*/
+
 
 
 
