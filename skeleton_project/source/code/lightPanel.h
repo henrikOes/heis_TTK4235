@@ -1,5 +1,4 @@
 #pragma once
 
-void setCurrentFloorLight();
+void setCurrentFloorLight(int floor);
 
-void testLights();
