@@ -52,6 +52,7 @@ int main(){
             oldFloor = newFloor;
         }
         elevio_motorDirection(m);
+        //test
     }  
     
     return 0;
