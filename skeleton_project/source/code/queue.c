@@ -2,6 +2,53 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+#include "queue.h"
+#include "../driver/elevio.h"
+
+int directionPriority;
+
+int *upList[4] = {0, 0, 0, 0};
+int *downList[4] = {0, 0, 0, 0};
+
+void removeToUpList(int floor){
+    upList[floor]=0;
+}
+
+void removeToDownList(int floor){
+    downList[floor]=0;
+}
+
+void addToUpList(int floor){
+    upList[floor]=1;
+}
+
+void addToDownList(int floor){
+    downList[floor]=1;
+}
+
+void listenForInput(){
+    for(int floor = 0; floor < N_FLOORS; floor++){
+        for(int buttonType = 0; buttonType < N_BUTTONS; buttonType++){
+            if (elevio_callButton(floor, (ButtonType)buttonType)){
+                elevio_buttonLamp(floor, buttonType, 1);
+                if (buttonType == BUTTON_HALL_UP) { //Legger til i oppoverkø
+                    addToUpList(floor);
+                }
+                else if (buttonType == BUTTON_HALL_DOWN) {
+                    addToDownList(floor);
+                }
+                /*else{ //Legger til i nedoverkø
+                    addToList(&downList, floor);
+                }*/
+            }
+        }
+    }
+}
+
+
+
+
+
 /*
 extern ElevatorButtons elevatorButtons;
 void removeFromInsideList(){

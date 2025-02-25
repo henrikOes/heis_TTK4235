@@ -14,45 +14,32 @@ int main(){
 
     startup();
 
-    int oldFloor = elevio_floorSensor();
-
     int newFloor;
 
-    MotorDirection m = DIRN_UP;
-
-    setCurrentFloorLight(oldFloor);
-    
-    while(1){
-        if(elevio_floorSensor()>=0){
+    setCurrentFloorLight(elevio_floorSensor());
+    int stop=0;
+    while(stop==0){
+        listenForInput();
+        
+        if(elevio_floorSensor()==2){
             newFloor = elevio_floorSensor();
+            elevio_motorDirection(DIRN_STOP);
+            elevio_buttonLamp(2,BUTTON_HALL_UP,0);
+            upList[2]=0;
         }   
+        
+        if(upList[2]==1){
+            elevio_motorDirection(DIRN_UP);
+        }
 
+        
         if(elevio_stopButton()){
             elevio_motorDirection(DIRN_STOP);
-            break;
+            stop=1;
         }
 
-        if (oldFloor != newFloor){printf("%i", newFloor);
-            elevio_motorDirection(DIRN_STOP);
-            setCurrentFloorLight(newFloor);
-            elevio_doorOpenLamp(1);
-            while(elevio_obstruction()){
-                waitThreeSeconds();
-            }
-            waitThreeSeconds();
-            elevio_doorOpenLamp(0);
 
-            if(newFloor == 3){
-                m = DIRN_DOWN;
-            }
-            if(newFloor == 0 && oldFloor == 1){
-                m = DIRN_UP;
-            }
-
-            oldFloor = newFloor;
-        }
-        elevio_motorDirection(m);
-        //test
+        
     }  
     
     return 0;

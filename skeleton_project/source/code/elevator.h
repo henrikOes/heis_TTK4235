@@ -1,5 +1,16 @@
 #pragma once
 #include <stdbool.h>
+#include "../driver/elevio.h"
+
+
+int floorFinderUp();
+int floorFinderDown();
+
+void emptyUpList();
+void emptyDownList();
+
+void goToCallUp();
+void goToCallDown();
 
 /*
 typedef enum {
