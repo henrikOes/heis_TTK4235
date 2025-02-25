@@ -5,6 +5,7 @@
 
 void startup(){
     elevio_init();
+    elevio_doorOpenLamp(0);
     while(elevio_floorSensor()!=0){
         elevio_motorDirection(DIRN_DOWN);  
     }

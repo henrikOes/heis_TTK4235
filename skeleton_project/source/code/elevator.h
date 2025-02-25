@@ -1,6 +1,7 @@
 #pragma once
 #include <stdbool.h>
 
+/*
 typedef enum {
     STATE_IDLE,
     STATE_UP,
@@ -13,3 +14,4 @@ void stop();
 void move();
 void openDoor();
 void elevatorStateMachine();
+*/

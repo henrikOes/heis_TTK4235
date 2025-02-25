@@ -1,6 +1,4 @@
 #pragma once
 
-
-
 void resetElevator();
-void wait();
+void waitThreeSeconds();

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+/*
 extern ElevatorButtons elevatorButtons;
 void removeFromInsideList(){
     switch (elevio_floorSensor()){
@@ -109,3 +110,4 @@ void listenForInput(){ //Itererer over alle knappene og lytter etter input
         } 
     }
 }
+*/
