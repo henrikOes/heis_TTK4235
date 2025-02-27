@@ -5,25 +5,25 @@
 #include "queue.h"
 #include "../driver/elevio.h"
 
-int directionPriority;
+int directionPriority = 1;
 
-int *upList[4] = {0, 0, 0, 0};
-int *downList[4] = {0, 0, 0, 0};
+int *upList[4];
+int *downList[4];
 
 void removeToUpList(int floor){
-    upList[floor]=0;
+    *upList[floor]=0;
 }
 
 void removeToDownList(int floor){
-    downList[floor]=0;
+    *downList[floor]=0;
 }
 
 void addToUpList(int floor){
-    upList[floor]=1;
+    *upList[floor]=1;
 }
 
 void addToDownList(int floor){
-    downList[floor]=1;
+    *downList[floor]=1;
 }
 
 void listenForInput(){
