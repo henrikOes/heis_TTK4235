@@ -9,5 +9,5 @@ void resetElevator(){
 }
 
 void waitThreeSeconds(){
-    nanosleep(&(struct timespec){3, 0}, NULL);
+    nanosleep(&(struct timespec){1, 0}, NULL);
 }
