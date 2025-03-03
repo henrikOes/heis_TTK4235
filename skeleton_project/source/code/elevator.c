@@ -7,40 +7,82 @@
 //n-cases for ned 4 etasje og opp 1 etasje
 //finner ut om det er flere calls i samme retning
 int floorFinderUp(int counter, int prevFloor){
+    int floorUp=-1;
+    int floorInside=-1;
     if(counter == 0){
         for(int floor=0;floor<N_FLOORS;floor++){
-            if(*upList[floor]==1){
-                printf("Neste opp-etasje: %d\n", floor);
-                return floor;
+            if(*upList[floor]==1 && floorUp == -1){
+                floorUp=floor;
             }
+        }
+        for(int floor=prevFloor-1;floor==0;floor--){
+            if(*insideList[floor]==1){
+                floorInside=floor;
+                break;
+            }
+        }
+        if(floorInside!=-1){
+            return floorInside;
+        }
+        else if(floorUp!=-1){
+            return floorUp;
         }
     }
     else{
         for(int floor=prevFloor+1;floor<N_FLOORS;floor++){
             if(*upList[floor]==1){
-                printf("Neste opp-etasje: %d\n", floor);
-                return floor;
+                floorUp = floor;
             }
+            if(*insideList[floor]==1){
+                floorInside=floor;
+            }
+        }
+        if(floorInside>=floorUp && floorUp != -1){
+            return floorUp;
+        }
+        else if(floorInside<floorUp && floorInside!=-1){
+            return floorInside;
         }
     }
     return -1;
 }
 
 int floorFinderDown(int counter, int prevFloor){
+    int floordown=-1;
+    int floorInside=-1;
     if(counter == 0){
         for(int floor=N_FLOORS-1;floor>=0;floor--){
             if(*downList[floor]==1){
-                printf("Neste ned-etasje: %d\n", floor);
-                return floor;
+                floordown= floor;
             }
+        }
+        for(int floor=prevFloor+1;floor==N_FLOORS-1;floor++){
+            if(*insideList[floor]==1){
+                floorInside=floor;
+                break;
+            }
+        }
+        if(floorInside!=-1){
+            return floorInside;
+        }
+        else if(floordown!=-1){
+            return floordown;
         }
     }
     else{
         for(int floor=prevFloor-1;floor>=0;floor--){
             if(*downList[floor]==1){
-                printf("Neste ned-etasje: %d\n", floor);
-                return floor;
+                floordown=floor;
             }
+            if(*insideList[floor]==1){
+                floorInside=floor;
+            }
+        }
+        if(floorInside<=floordown && floordown != -1){
+            return floordown;
+        }
+        else if(floorInside>floordown && floorInside!=-1){
+            return floorInside;
         }
     }
     return -1;
@@ -79,36 +121,3 @@ void goToCallDown(int counter, int prevFloor){
     }
 }
 
-/*
-void stop(){
-
-};
-
-void move(){
-    
-};
-
-void openDoor(){
-
-};
-
-
-void elevatorStateMachine(elevatorState *change){
-    switch (*change){
-        case STATE_IDLE:
-            *change = STATE_IDLE;
-            break;
-        case STATE_UP:
-            *change = STATE_UP;
-            break;
-
-        case STATE_DOWN:
-            *change = STATE_DOWN;
-            break;
-        default:
-            *change = STATE_IDLE;
-            break;
-    }
-
-}
-    */

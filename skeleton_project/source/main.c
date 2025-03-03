@@ -16,8 +16,11 @@ int main(){
     for (int i = 0; i < 4; i++){
         upList[i] = malloc(sizeof(int));
         downList[i] = malloc(sizeof(int));
+        insideList[i] = malloc(sizeof(int));
         *upList[i] = 0;
         *downList[i] = 0;
+        *insideList[i] = 0;
+
     }
 
     startup();
@@ -26,8 +29,9 @@ int main(){
     int prevFloor=0;
     setCurrentFloorLight(elevio_floorSensor());
     int stop=0;
+
     while(stop==0){
-        listenForInput(directionPriority);
+        listenForInput(prevFloor);
         //sjekker tilstand
         if(elevio_floorSensor()!=-1){
             prevFloor=elevio_floorSensor();
@@ -44,7 +48,7 @@ int main(){
                 deliverCounter++;
                 while ((elevio_obstruction())){
                     waitThreeSeconds();
-                    listenForInput(directionPriority);
+                    listenForInput(prevFloor);
                 }
                 elevio_doorOpenLamp(0);
                 nextFloor = -2;
@@ -73,7 +77,7 @@ int main(){
                 deliverCounter++;
                 while ((elevio_obstruction())){
                     waitThreeSeconds();
-                    listenForInput(directionPriority);
+                    listenForInput(prevFloor);
                 }
                 elevio_doorOpenLamp(0);
                 nextFloor = -2;
