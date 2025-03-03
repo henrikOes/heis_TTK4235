@@ -40,6 +40,7 @@ int main(){
                 waitThreeSeconds();
                 while ((elevio_obstruction())){
                     waitThreeSeconds();
+                    listenForInput();
                 }
                 elevio_doorOpenLamp(0);
                 nextFloor = -2;
@@ -65,6 +66,7 @@ int main(){
                 waitThreeSeconds();
                 while ((elevio_obstruction())){
                     waitThreeSeconds();
+                    listenForInput();
                 }
                 elevio_doorOpenLamp(0);
                 nextFloor = -2;
