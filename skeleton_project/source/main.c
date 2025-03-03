@@ -21,64 +21,73 @@ int main(){
     }
 
     startup();
-
+    int deliverCounter=0;
     int nextFloor=-2; //random value that is not in the system code
-
+    int prevFloor=0;
     setCurrentFloorLight(elevio_floorSensor());
     int stop=0;
     while(stop==0){
-        listenForInput();
+        listenForInput(directionPriority);
         //sjekker tilstand
+        if(elevio_floorSensor()!=-1){
+            prevFloor=elevio_floorSensor();
+        }
         if (directionPriority == 1){
             //sjekker annkomst og om flere mål i listen
-            if(nextFloor == elevio_floorSensor() && elevio_floorSensor()>-1){
+            if(nextFloor == elevio_floorSensor() && elevio_floorSensor()!=-1){
                 elevio_motorDirection(DIRN_STOP);
                 printf("Ankommet opp-etasje: %d\n", nextFloor);
                 elevio_floorIndicator(nextFloor);
                 emptyUpList();
                 elevio_doorOpenLamp(1);
                 waitThreeSeconds();
+                deliverCounter++;
                 while ((elevio_obstruction())){
                     waitThreeSeconds();
-                    listenForInput();
+                    listenForInput(directionPriority);
                 }
                 elevio_doorOpenLamp(0);
                 nextFloor = -2;
             }
             //kjører til mål
-            else if(floorFinderUp()!=-1){
-                goToCallUp();
-                nextFloor = floorFinderUp();
+            else if(floorFinderUp(deliverCounter,prevFloor)!=-1){
+                goToCallUp(deliverCounter,prevFloor);
+                nextFloor = floorFinderUp(deliverCounter,prevFloor);
                 printf("nextfloor opp ble satt til: %d\n", nextFloor);
             }
             //flipper direction hvis listen opp er tom
-            if(floorFinderUp() == -1){
+            if(floorFinderUp(deliverCounter,prevFloor) == -1){
                 directionPriority = -1;
+                deliverCounter=0;
+                printf("flip to down\n");
             }
         }
         if (directionPriority == -1){
-            if(nextFloor == elevio_floorSensor() && elevio_floorSensor()>-1){
+            if(nextFloor == elevio_floorSensor() && elevio_floorSensor()!= -1){
                 elevio_motorDirection(DIRN_STOP);
                 printf("Ankommet ned-etasje: %d\n", nextFloor);
                 elevio_floorIndicator(nextFloor);
                 emptyDownList();
                 elevio_doorOpenLamp(1);
                 waitThreeSeconds();
+                deliverCounter++;
                 while ((elevio_obstruction())){
                     waitThreeSeconds();
-                    listenForInput();
+                    listenForInput(directionPriority);
                 }
                 elevio_doorOpenLamp(0);
                 nextFloor = -2;
             }
-            else if(floorFinderDown()!=-1){
-                goToCallDown();
-                nextFloor = floorFinderDown();
+            else if(floorFinderDown(deliverCounter,prevFloor)!=-1){
+                goToCallDown(deliverCounter,prevFloor);
+                nextFloor = floorFinderDown(deliverCounter,prevFloor);
                 printf("nextfloor ned ble satt til: %d\n", nextFloor);
             }
             //flipper direction hvis listen ned er tom
-            if(floorFinderDown() == -1){
+            if(floorFinderDown(deliverCounter,prevFloor) == -1){
                 directionPriority = 1;
+                deliverCounter=0;
+                printf("flip to up\n");
             }
         }
 

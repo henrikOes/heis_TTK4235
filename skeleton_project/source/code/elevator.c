@@ -6,21 +6,41 @@
 
 //n-cases for ned 4 etasje og opp 1 etasje
 //finner ut om det er flere calls i samme retning
-int floorFinderUp(){
-    for(int floor=0;floor<N_FLOORS;floor++){
-        if(*upList[floor]==1 && elevio_floorSensor() < 3){
-            printf("Neste opp-etasje: %d\n", floor);
-            return floor;
+int floorFinderUp(int counter, int prevFloor){
+    if(counter == 0){
+        for(int floor=0;floor<N_FLOORS;floor++){
+            if(*upList[floor]==1){
+                printf("Neste opp-etasje: %d\n", floor);
+                return floor;
+            }
+        }
+    }
+    else{
+        for(int floor=prevFloor+1;floor<N_FLOORS;floor++){
+            if(*upList[floor]==1){
+                printf("Neste opp-etasje: %d\n", floor);
+                return floor;
+            }
         }
     }
     return -1;
 }
 
-int floorFinderDown(){
-    for(int floor=N_FLOORS-1;floor>=0;floor--){
-        if(*downList[floor]==1 && elevio_floorSensor() > 0){
-            printf("Neste ned-etasje: %d\n", floor);
-            return floor;
+int floorFinderDown(int counter, int prevFloor){
+    if(counter == 0){
+        for(int floor=N_FLOORS-1;floor>=0;floor--){
+            if(*downList[floor]==1){
+                printf("Neste ned-etasje: %d\n", floor);
+                return floor;
+            }
+        }
+    }
+    else{
+        for(int floor=prevFloor-1;floor>=0;floor--){
+            if(*downList[floor]==1){
+                printf("Neste ned-etasje: %d\n", floor);
+                return floor;
+            }
         }
     }
     return -1;
@@ -28,31 +48,33 @@ int floorFinderDown(){
 void emptyUpList(){
     *upList[elevio_floorSensor()]=0;
     elevio_buttonLamp(elevio_floorSensor(), BUTTON_HALL_UP, 0);
+    elevio_buttonLamp(elevio_floorSensor(), BUTTON_CAB, 0);
 }
 
 void emptyDownList(){ 
     *downList[elevio_floorSensor()]=0;
     elevio_buttonLamp(elevio_floorSensor(), BUTTON_HALL_DOWN, 0);
+    elevio_buttonLamp(elevio_floorSensor(), BUTTON_CAB, 0);
 }
 
-void goToCallUp(){
-    printf("%d finder \n", floorFinderUp());
+void goToCallUp(int counter, int prevFloor){
+    printf("%d finder \n", floorFinderUp(counter,prevFloor));
     printf("%d sensor \n", elevio_floorSensor());
 
-    if(floorFinderUp()>elevio_floorSensor() && elevio_floorSensor()!=-1){
+    if(floorFinderUp(counter,prevFloor)>elevio_floorSensor() && elevio_floorSensor()!=-1){
         elevio_motorDirection(DIRN_UP);
     }
-    else if(floorFinderUp()<elevio_floorSensor() && elevio_floorSensor()!=-1){
+    else if(floorFinderUp(counter,prevFloor)<elevio_floorSensor() && elevio_floorSensor()!=-1){
         elevio_motorDirection(DIRN_DOWN);
     }
 }
 
-void goToCallDown(){
+void goToCallDown(int counter, int prevFloor){
 
-    if(floorFinderDown()>elevio_floorSensor() && elevio_floorSensor()!=-1){
+    if(floorFinderDown(counter,prevFloor)>elevio_floorSensor() && elevio_floorSensor()!=-1){
         elevio_motorDirection(DIRN_UP);
     }
-    else if(floorFinderDown()<elevio_floorSensor() && elevio_floorSensor()!=-1){
+    else if(floorFinderDown(counter,prevFloor)<elevio_floorSensor() && elevio_floorSensor()!=-1){
         elevio_motorDirection(DIRN_DOWN);
     }
 }

@@ -14,4 +14,4 @@ void addToUpList(int floor);
 void addToDownList(int floor);
 
 
-void listenForInput();
+void listenForInput(int state);

@@ -26,7 +26,7 @@ void addToDownList(int floor){
     *downList[floor]=1;
 }
 
-void listenForInput(){
+void listenForInput(int state){
     for(int floor = 0; floor < N_FLOORS; floor++){
         for(int buttonType = 0; buttonType < N_BUTTONS; buttonType++){
             if (elevio_callButton(floor, (ButtonType)buttonType)){
@@ -36,6 +36,14 @@ void listenForInput(){
                 }
                 else if (buttonType == BUTTON_HALL_DOWN) {
                     addToDownList(floor);
+                }
+                else if(buttonType == BUTTON_CAB){
+                    if(state == 1){
+                        addToDownList(floor);
+                    }
+                    else{
+                        addToUpList(floor);
+                    }
                 }
                 /*else{ //Legger til i nedoverkø
                     addToList(&downList, floor);
