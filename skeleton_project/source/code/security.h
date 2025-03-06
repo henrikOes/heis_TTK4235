@@ -1,4 +1,6 @@
 #pragma once
 
 void resetElevator();
-void waitThreeSeconds();
+void wait();
+void deleteOrders();
+void stopElevator();

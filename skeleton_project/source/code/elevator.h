@@ -3,14 +3,16 @@
 #include "../driver/elevio.h"
 
 
-int floorFinderUp(int counter, int prevFloor);
-int floorFinderDown(int counter, int prevFloor);
+int floorFinderUp(int prevFloor);
+int floorFinderDown(int prevFloor);
 
-void emptyUpList();
-void emptyDownList();
+void emptyList();
 
-void goToCallUp(int counter, int prevFloor);
-void goToCallDown(int counter, int prevFloor);
+void goToCallUp(int counter, int prevFloor, int nextFloor);
+void goToCallDown(int counter, int prevFloor, int nextFloor);
+void goToCallCab(int floor);
+
+void setCurrentFloorLight(int floor);
 
 /*
 typedef enum {
