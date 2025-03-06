@@ -9,14 +9,7 @@ int directionPriority = 1;
 
 int *upList[4];
 int *downList[4];
-
-void removeToUpList(int floor){
-    *upList[floor]=0;
-}
-
-void removeToDownList(int floor){
-    *downList[floor]=0;
-}
+int *insideList[4];
 
 void addToUpList(int floor){
     *upList[floor]=1;
@@ -24,6 +17,9 @@ void addToUpList(int floor){
 
 void addToDownList(int floor){
     *downList[floor]=1;
+}
+void addToInsideList(int floor){
+    *insideList[floor]=1;
 }
 
 void listenForInput(int state){
@@ -38,12 +34,7 @@ void listenForInput(int state){
                     addToDownList(floor);
                 }
                 else if(buttonType == BUTTON_CAB){
-                    if(state == 1){
-                        addToDownList(floor);
-                    }
-                    else{
-                        addToUpList(floor);
-                    }
+                    addToInsideList(floor);
                 }
                 /*else{ //Legger til i nedoverkø
                     addToList(&downList, floor);
