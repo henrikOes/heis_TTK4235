@@ -1,5 +1,4 @@
 #include "security.h"
-#include "startPhase.h"
 #include "queue.h"
 #include "../driver/elevio.h"
 #include <time.h>
@@ -28,13 +27,22 @@ void deleteOrders(){
 void stopElevator(){
     elevio_motorDirection(DIRN_STOP);
     deleteOrders();
-
-    printf("uplist: [%d,%d,%d,%d]\n", *upList[0],*upList[1],*upList[2],*upList[3]);
-    printf("downlist: [%d,%d,%d,%d]\n", *downList[0],*downList[1],*downList[2],*downList[3]);
-    printf("insidelist: [%d,%d,%d,%d]\n", *insideList[0],*insideList[1],*insideList[2],*insideList[3]);
-
     while (elevio_stopButton())
     {
         wait();
     }
+}
+
+void startup(){
+    elevio_init();
+    elevio_doorOpenLamp(0);
+    for(int floor = 0; floor < N_FLOORS; floor++){
+        for(int buttonType = 0; buttonType < N_BUTTONS; buttonType++){
+            elevio_buttonLamp(floor, buttonType, 0);
+        }
+    }
+    while(elevio_floorSensor()!=0){
+        elevio_motorDirection(DIRN_DOWN);  
+    }
+    elevio_motorDirection(DIRN_STOP);  
 }

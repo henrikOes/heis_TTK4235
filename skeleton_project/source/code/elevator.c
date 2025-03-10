@@ -9,7 +9,6 @@
 int floorFinderUp(int prevFloor){
     for(int floor=prevFloor+1;floor<N_FLOORS;floor++){
         if(*upList[floor]==1 || *downList[floor]==1 || *insideList[floor]==1){
-            printf("test up %d\n", floor);
             return floor;
         }
     }
@@ -19,7 +18,6 @@ int floorFinderUp(int prevFloor){
 int floorFinderDown(int prevFloor){
     for(int floor=prevFloor-1;floor>=0;floor--){
         if(*upList[floor]==1 || *downList[floor]==1 || *insideList[floor]==1){
-            printf("test down %d\n", floor);
             return floor;
         }
     }

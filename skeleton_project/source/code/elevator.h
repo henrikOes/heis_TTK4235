@@ -8,10 +8,6 @@ int floorFinderDown(int prevFloor);
 
 void emptyList();
 
-void goToCallUp(int counter, int prevFloor, int nextFloor);
-void goToCallDown(int counter, int prevFloor, int nextFloor);
-void goToCallCab(int floor);
-
 void setCurrentFloorLight(int floor);
 
 /*
