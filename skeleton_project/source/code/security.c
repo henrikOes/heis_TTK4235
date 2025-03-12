@@ -27,10 +27,16 @@ void deleteOrders(){
 void stopElevator(){
     elevio_motorDirection(DIRN_STOP);
     deleteOrders();
+    elevio_stopLamp(1);
+    if(elevio_floorSensor()!=-1){
+        elevio_doorOpenLamp(1);
+    }
     while (elevio_stopButton())
     {
         wait();
     }
+    elevio_doorOpenLamp(0);
+    elevio_stopLamp(0);
 }
 
 void startup(){
