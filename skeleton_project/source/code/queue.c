@@ -27,7 +27,7 @@ void listenForInput(int state){
         for(int buttonType = 0; buttonType < N_BUTTONS; buttonType++){
             if (elevio_callButton(floor, (ButtonType)buttonType)){
                 elevio_buttonLamp(floor, buttonType, 1);
-                if (buttonType == BUTTON_HALL_UP) { //Legger til i oppoverkø
+                if (buttonType == BUTTON_HALL_UP) { 
                     addToUpList(floor);
                 }
                 else if (buttonType == BUTTON_HALL_DOWN) {
@@ -36,9 +36,6 @@ void listenForInput(int state){
                 else if(buttonType == BUTTON_CAB){
                     addToInsideList(floor);
                 }
-                /*else{ //Legger til i nedoverkø
-                    addToList(&downList, floor);
-                }*/
             }
         }
     }

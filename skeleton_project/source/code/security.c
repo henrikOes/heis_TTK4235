@@ -28,13 +28,14 @@ void deleteOrders(){
 void stopElevator(){
     elevio_motorDirection(DIRN_STOP);
     deleteOrders();
-
-    printf("uplist: [%d,%d,%d,%d]\n", *upList[0],*upList[1],*upList[2],*upList[3]);
-    printf("downlist: [%d,%d,%d,%d]\n", *downList[0],*downList[1],*downList[2],*downList[3]);
-    printf("insidelist: [%d,%d,%d,%d]\n", *insideList[0],*insideList[1],*insideList[2],*insideList[3]);
-
+    elevio_stopLamp(1);
+    if(elevio_floorSensor()!=-1){
+        elevio_doorOpenLamp(1);
+    }
     while (elevio_stopButton())
     {
         wait();
     }
+    elevio_doorOpenLamp(0);
+    elevio_stopLamp(0);
 }
