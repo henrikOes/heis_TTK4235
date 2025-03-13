@@ -12,6 +12,7 @@ int stopButton = 0;
 
 int main(){
 
+    //Initialiserer og reserverer minne til de dynamiske listene våre
     for (int i = 0; i < 4; i++){
         upList[i] = malloc(sizeof(int));
         downList[i] = malloc(sizeof(int));
@@ -28,9 +29,13 @@ int main(){
     while(1){
         int timerCounter=0;
         listenForInput(directionPriority);
+
+        //Setter etasjen til der vi sist stoppet
         if(elevio_floorSensor()!=-1){
             prevFloor=elevio_floorSensor();
         }
+
+        //Ankommet etasje
         if(nextFloor == elevio_floorSensor() && elevio_floorSensor()!=-1){
             elevio_motorDirection(DIRN_STOP);
             elevio_floorIndicator(nextFloor);
@@ -50,6 +55,7 @@ int main(){
             elevio_doorOpenLamp(0);
         }
         
+        //Logikk for retning opp
         if (directionPriority == 1){
             if(floorFinderUp(prevFloor)!=-1){
                 elevio_motorDirection(DIRN_UP);
@@ -60,6 +66,7 @@ int main(){
             }
         }
 
+        //Logikk for retning ned
         else if(directionPriority==-1){
             if(floorFinderDown(prevFloor)!=-1){
                 elevio_motorDirection(DIRN_DOWN);
@@ -70,10 +77,12 @@ int main(){
             }
         }
 
+        //Setter etasjelys for den etasjen vi er i
         if(elevio_floorSensor()>=0){
             elevio_floorIndicator(elevio_floorSensor());
         }
 
+        //Stopp knappen trykkes og funksjonen utføres
         if(elevio_stopButton()){
             stopElevator();
         }

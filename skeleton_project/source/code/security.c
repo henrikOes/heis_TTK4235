@@ -6,14 +6,17 @@
 
 extern int stopButton;
 
+//Starter heisen på nytt
 void resetElevator(){
     startup();
 }
 
+//Venter i x antall nanosekunder, kjører while loop i main for å sjekke etter bestillinger underveis
 void wait(){
     nanosleep(&(struct timespec){0, 10000000}, NULL);
 }
 
+//Tømmer listene og skrur av lys, kalles etter stoppkanppen er tastet inn
 void deleteOrders(){
     for(int floor=0;floor<=N_FLOORS-1;floor++){
         *upList[floor]=0;
@@ -25,6 +28,8 @@ void deleteOrders(){
     }
 }
 
+
+//Stopper heisen, tømmer listene og lukker døra 
 void stopElevator(){
     elevio_motorDirection(DIRN_STOP);
     deleteOrders();
