@@ -29,7 +29,7 @@ void deleteOrders(){
 }
 
 
-//Stopper heisen, tømmer listene og lukker døra 
+//Stopper heisen, tømmer listene og åpner døren hvis vi er i en etasje
 void stopElevator(){
     elevio_motorDirection(DIRN_STOP);
     deleteOrders();

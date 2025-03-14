@@ -23,14 +23,14 @@ int main(){
     }
 
     startup();
-    int nextFloor=-2;
+    int nextFloor=-2; //Setter verdien -2 for å vise at vi ikke har noe next floor enda.
     int prevFloor=0;
     setCurrentFloorLight(elevio_floorSensor());
     while(1){
         int timerCounter=0;
         listenForInput(directionPriority);
 
-        //Setter etasjen til der vi sist stoppet
+        //Setter etasjen til der heisen er. Hvis heisen er mellom 2 etasjer setter vi den til forrige verdi på sensoren
         if(elevio_floorSensor()!=-1){
             prevFloor=elevio_floorSensor();
         }
@@ -41,6 +41,7 @@ int main(){
             elevio_floorIndicator(nextFloor);
             emptyList();
             elevio_doorOpenLamp(1);
+            //Stopper i 3 sekunder
             while(timerCounter<180){
                 if(elevio_obstruction()){
                     timerCounter=0;
@@ -48,6 +49,7 @@ int main(){
                 wait();
                 listenForInput(directionPriority);
                 timerCounter++;
+                //Stopp knapp logikk
                 if(elevio_stopButton()){
                     stopElevator();
                 }

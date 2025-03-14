@@ -2,7 +2,7 @@
 #include "../driver/elevio.h"
 
 
-//Startup funksjonen vår. Initsialiserer heisen, skrur av alle lys og sender den til første etasje før den tar imot bestillinger.
+//Startup funksjonen vår. Initsialiserer heisen, skrur av alle lys og sender den til første etasje
 void startup(){
     elevio_init();
     elevio_doorOpenLamp(0);
